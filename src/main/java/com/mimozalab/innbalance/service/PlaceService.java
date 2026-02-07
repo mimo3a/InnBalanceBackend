@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mimozalab.innbalance.dto.PlaceDTO;
@@ -12,39 +11,27 @@ import com.mimozalab.innbalance.exception.ResourceNotFoundException;
 import com.mimozalab.innbalance.model.Place;
 import com.mimozalab.innbalance.model.User;
 import com.mimozalab.innbalance.repository.PlaceRepository;
-import com.mimozalab.innbalance.repository.UserRepository;
-import com.mimozalab.innbalance.security.JwtTokenProvider;
 
 @Service
 public class PlaceService {
-    
-    @Autowired
-    private PlaceRepository placeRepository;
-    
-    @Autowired
-    private UserRepository userRepository;
-    
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
-    
-    // Получить все места пользователя
-    public List<PlaceDTO> getUserPlaces(String token) {
-        String username = jwtTokenProvider.getUsernameFromToken(token);
-        User user = userRepository.findByUsername(username)
-            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        
-        List<Place> places = placeRepository.findByUserId(user.getId());
-        return places.stream()
+
+    private final PlaceRepository placeRepository;
+
+    public PlaceService(PlaceRepository placeRepository) {
+        this.placeRepository = placeRepository;
+    }
+
+    // Получить места пользователя
+    public List<PlaceDTO> getUserPlaces(User user) {
+        return placeRepository.findByUserId(user.getId())
+            .stream()
             .map(this::convertToDTO)
             .collect(Collectors.toList());
     }
-    
+
     // Добавить новое место
-    public PlaceDTO addPlace(PlaceDTO placeDTO, String token) {
-        String username = jwtTokenProvider.getUsernameFromToken(token);
-        User user = userRepository.findByUsername(username)
-            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        
+    public PlaceDTO addPlace(PlaceDTO placeDTO, User user) {
+
         Place place = new Place();
         place.setName(placeDTO.getName());
         place.setDescription(placeDTO.getDescription());
@@ -54,16 +41,15 @@ public class PlaceService {
         place.setRating(0);
         place.setUser(user);
         place.setCreatedAt(LocalDateTime.now());
-        
-        Place savedPlace = placeRepository.save(place);
-        return convertToDTO(savedPlace);
+
+        return convertToDTO(placeRepository.save(place));
     }
-    
-    // Обновить место (например, рейтинг)
+
+    // Обновить место
     public PlaceDTO updatePlace(Long id, PlaceDTO placeDTO) {
         Place place = placeRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Place not found"));
-        
+
         if (placeDTO.getRating() != null) {
             place.setRating(placeDTO.getRating());
         }
@@ -73,19 +59,18 @@ public class PlaceService {
         if (placeDTO.getDescription() != null) {
             place.setDescription(placeDTO.getDescription());
         }
-        
-        Place updatedPlace = placeRepository.save(place);
-        return convertToDTO(updatedPlace);
+
+        return convertToDTO(placeRepository.save(place));
     }
-    
+
     // Удалить место
     public void deletePlace(Long id) {
         Place place = placeRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Place not found"));
         placeRepository.delete(place);
     }
-    
-    // Конвертация Entity -> DTO
+
+    // Entity → DTO
     private PlaceDTO convertToDTO(Place place) {
         PlaceDTO dto = new PlaceDTO();
         dto.setId(place.getId());
