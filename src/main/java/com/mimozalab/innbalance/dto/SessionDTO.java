@@ -8,7 +8,6 @@ public class SessionDTO {
     private Long userId;
     private String exerciseType;
     private Long duration; // duration in seconds (or chosen unit)
-    private Integer feelingAfter;
     private LocalDateTime createdAt;
 
     public SessionDTO() {
@@ -44,14 +43,7 @@ public class SessionDTO {
 
     public void setDuration(Long duration) {
         this.duration = duration;
-    }
-
-    public Integer getFeelingAfter() {
-        return feelingAfter;
-    }
-
-    public void setFeelingAfter(Integer feelingAfter) {
-        this.feelingAfter = feelingAfter;
+    
     }
 
     public LocalDateTime getCreatedAt() {

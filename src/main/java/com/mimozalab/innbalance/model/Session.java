@@ -28,10 +28,7 @@ public class Session {
     
     // duration in seconds (or any chosen unit)
     private Long duration;
-    
-    // feeling after session (rating)
-    private Integer feelingAfter;
-    
+      
     private LocalDateTime createdAt;
     
     public Session() {}
@@ -47,9 +44,6 @@ public class Session {
     
     public Long getDuration() { return duration; }
     public void setDuration(Long duration) { this.duration = duration; }
-    
-    public Integer getFeelingAfter() { return feelingAfter; }
-    public void setFeelingAfter(Integer feelingAfter) { this.feelingAfter = feelingAfter; }
     
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }

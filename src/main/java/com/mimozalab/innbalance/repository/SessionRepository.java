@@ -36,10 +36,6 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
     @Query("SELECT SUM(s.duration) FROM Session s WHERE s.user.id = :userId")
     Long getTotalDurationByUserId(@Param("userId") Long userId);
     
-    // Средний рейтинг сессий
-    @Query("SELECT AVG(s.feelingAfter) FROM Session s WHERE s.user.id = :userId")
-    Double getAverageFeelingByUserId(@Param("userId") Long userId);
-    
     // Удалить все сессии пользователя
     void deleteByUserId(Long userId);
 }
