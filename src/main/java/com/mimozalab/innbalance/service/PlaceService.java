@@ -30,15 +30,15 @@ public class PlaceService {
     }
 
     // Добавить новое место
-    public PlaceDTO addPlace(PlaceDTO placeDTO, User user) {
-
+   public PlaceDTO addPlace(PlaceDTO dto, User user) {
         Place place = new Place();
-        place.setName(placeDTO.getName());
-        place.setDescription(placeDTO.getDescription());
-        place.setLatitude(placeDTO.getLatitude());
-        place.setLongitude(placeDTO.getLongitude());
-        place.setImageUrl(placeDTO.getImageUrl());
+        place.setName(dto.getName());
+        place.setDescription(dto.getDescription());
+        place.setLatitude(dto.getLatitude());
+        place.setLongitude(dto.getLongitude());
+        place.setImageUrl(dto.getImageUrl());
         place.setRating(0);
+        place.setIsDefault(false);
         place.setUser(user);
         place.setCreatedAt(LocalDateTime.now());
 

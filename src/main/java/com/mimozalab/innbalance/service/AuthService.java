@@ -10,7 +10,7 @@ import com.mimozalab.innbalance.dto.LoginRequest;
 import com.mimozalab.innbalance.dto.SignUpRequest;
 import com.mimozalab.innbalance.model.User;
 import com.mimozalab.innbalance.repository.UserRepository;
-import com.mimozalab.innbalance.service.JwtUtil;
+
 
 @Service
 public class AuthService {
