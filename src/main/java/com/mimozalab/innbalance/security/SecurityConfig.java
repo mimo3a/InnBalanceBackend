@@ -26,12 +26,21 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
             sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         )
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/api/auth/**",
+    .requestMatchers(
+        "/api/auth/**",
+
+        // Swagger
         "/swagger-ui/**",
         "/swagger-ui.html",
-        "/v3/api-docs/**").permitAll() // ⬅️ signup + login
-            .anyRequest().authenticated()
-        )
+        "/v3/api-docs/**",
+        "/v3/api-docs",
+        "/swagger-resources/**",
+        "/webjars/**"
+    ).permitAll()
+
+    .anyRequest().authenticated()
+)
+
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
