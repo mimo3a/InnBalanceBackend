@@ -30,6 +30,8 @@ public class Place {
 
     private String imageUrl;
 
+    private String category;
+
     private Integer rating;
 
     // keep name `isDefault` so generated getter/setter match usages in service/DTO
@@ -90,6 +92,14 @@ public class Place {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Integer getRating() {

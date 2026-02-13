@@ -8,6 +8,7 @@ public class PlaceDTO {
     private Double latitude;
     private Double longitude;
     private String imageUrl;
+    private String category;
     private Integer rating;
     private Boolean isDefault;
 
@@ -60,6 +61,14 @@ public class PlaceDTO {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Integer getRating() {

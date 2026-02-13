@@ -37,6 +37,7 @@ public class PlaceService {
         place.setLatitude(dto.getLatitude());
         place.setLongitude(dto.getLongitude());
         place.setImageUrl(dto.getImageUrl());
+        place.setCategory(dto.getCategory());
         place.setRating(0);
         place.setIsDefault(false);
         place.setUser(user);
@@ -59,6 +60,9 @@ public class PlaceService {
         if (placeDTO.getDescription() != null) {
             place.setDescription(placeDTO.getDescription());
         }
+        if (placeDTO.getCategory() != null) {
+            place.setCategory(placeDTO.getCategory());
+        }
 
         return convertToDTO(placeRepository.save(place));
     }
@@ -79,6 +83,7 @@ public class PlaceService {
         dto.setLatitude(place.getLatitude());
         dto.setLongitude(place.getLongitude());
         dto.setImageUrl(place.getImageUrl());
+        dto.setCategory(place.getCategory());
         dto.setRating(place.getRating());
         dto.setIsDefault(place.getIsDefault());
         return dto;
