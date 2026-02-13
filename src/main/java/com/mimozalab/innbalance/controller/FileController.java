@@ -41,9 +41,8 @@ public class FileController {
             Path filePath = uploadPath.resolve(uniqueFilename);
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-            // Формируем URL для доступа к файлу
-            // В продакшене замени на реальный домен/порт
-            String fileUrl = "/uploads/" + uniqueFilename;
+            // Формируем полный URL для доступа к файлу
+            String fileUrl = "http://46.224.147.217:8082/uploads/" + uniqueFilename;
 
             Map<String, String> response = new HashMap<>();
             response.put("url", fileUrl);
